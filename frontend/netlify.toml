@@ -14,7 +14,7 @@
   status = 200
 
 [env.production]
-  REACT_APP_BACKEND_URL = "https://your-backend-api.com"
+  REACT_APP_BACKEND_URL = "https://content-manager-881h.onrender.com"
 
 [env.dev]
   REACT_APP_BACKEND_URL = "http://localhost:8000"
