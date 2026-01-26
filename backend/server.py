@@ -14,9 +14,19 @@ from enum import Enum
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+# Configure logging first
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 # MongoDB connection
 mongo_url = os.environ.get('MONGO_URL')
 db_name = os.environ.get('DB_NAME', 'content_manage')
+
+logger.info(f"Environment: MONGO_URL is {'set' if mongo_url else 'NOT SET'}")
+logger.info(f"Environment: DB_NAME = {db_name}")
 
 if not mongo_url:
     raise ValueError(
@@ -24,8 +34,14 @@ if not mongo_url:
         "Please set it in your .env file or in your deployment platform (e.g., Render dashboard)."
     )
 
-client = AsyncIOMotorClient(mongo_url)
-db = client[db_name]
+logger.info("Attempting MongoDB connection...")
+try:
+    client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=5000)
+    db = client[db_name]
+    logger.info("MongoDB client initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize MongoDB client: {e}")
+    raise
 
 # Create the main app without a prefix
 app = FastAPI()
@@ -276,13 +292,6 @@ async def get_tags():
 
 # Include the router in the main app
 app.include_router(api_router)
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
