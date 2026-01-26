@@ -20,9 +20,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { createPost } from '@/lib/api';
+import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 export default function CreatePostDialog({ onCreated, trigger }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tagInput, setTagInput] = useState('');
@@ -33,6 +35,7 @@ export default function CreatePostDialog({ onCreated, trigger }) {
     content_type: 'reel',
     priority: 'medium',
     tags: [],
+    user_id: user?.id || '',
   });
 
   const handleSubmit = async (e) => {
@@ -54,6 +57,7 @@ export default function CreatePostDialog({ onCreated, trigger }) {
         content_type: 'reel',
         priority: 'medium',
         tags: [],
+        user_id: user?.id || '',
       });
       onCreated?.();
     } catch (error) {
@@ -92,7 +96,7 @@ export default function CreatePostDialog({ onCreated, trigger }) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button 
+          <Button
             className="h-10 px-6 rounded-full bg-lime-400 text-black font-bold hover:bg-lime-500 hover:scale-105 transition-all"
             data-testid="create-post-btn"
           >
@@ -105,7 +109,7 @@ export default function CreatePostDialog({ onCreated, trigger }) {
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">Create New Idea</DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit} className="space-y-5 mt-4">
           {/* Title */}
           <div className="space-y-2">
@@ -207,9 +211,9 @@ export default function CreatePostDialog({ onCreated, trigger }) {
                 className="bg-zinc-950/50 border-white/10 focus:border-lime-400/50"
                 data-testid="tag-input"
               />
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={addTag}
                 className="border-white/10"
                 data-testid="add-tag-btn"
@@ -240,16 +244,16 @@ export default function CreatePostDialog({ onCreated, trigger }) {
 
           {/* Submit */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button 
-              type="button" 
-              variant="outline" 
+            <Button
+              type="button"
+              variant="outline"
               onClick={() => setOpen(false)}
               className="border-white/10"
             >
               Cancel
             </Button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={loading}
               className="bg-lime-400 text-black hover:bg-lime-500"
               data-testid="submit-post-btn"
