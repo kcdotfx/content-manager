@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Lightbulb, 
-  FileEdit, 
-  CheckCircle2, 
+import {
+  Lightbulb,
+  FileEdit,
+  CheckCircle2,
   Send,
   TrendingUp,
   ArrowRight,
@@ -13,12 +13,13 @@ import {
   Twitter,
   Plus
 } from 'lucide-react';
-import { getStats, getPosts } from '@/lib/api';
+import { getStats, getPosts, deletePost } from '@/lib/api';
 import { cn, formatRelativeDate, STATUSES } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import CreatePostDialog from '@/components/CreatePostDialog';
 import PostCard from '@/components/PostCard';
+import { toast } from 'sonner';
 
 const platformIcons = {
   instagram: Instagram,
@@ -54,6 +55,16 @@ export default function Dashboard() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deletePost(id);
+      toast.success('Idea deleted');
+      fetchData();
+    } catch (error) {
+      toast.error('Failed to delete idea');
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -67,31 +78,31 @@ export default function Dashboard() {
   }
 
   const statCards = [
-    { 
-      label: 'Total Ideas', 
-      value: stats?.total || 0, 
-      icon: Lightbulb, 
+    {
+      label: 'Total Ideas',
+      value: stats?.total || 0,
+      icon: Lightbulb,
       color: 'text-zinc-400',
       bgColor: 'bg-zinc-800/50'
     },
-    { 
-      label: 'In Progress', 
-      value: stats?.in_progress || 0, 
-      icon: FileEdit, 
+    {
+      label: 'In Progress',
+      value: stats?.in_progress || 0,
+      icon: FileEdit,
       color: 'text-yellow-400',
       bgColor: 'bg-yellow-400/10'
     },
-    { 
-      label: 'Ready', 
-      value: stats?.ready || 0, 
-      icon: CheckCircle2, 
+    {
+      label: 'Ready',
+      value: stats?.ready || 0,
+      icon: CheckCircle2,
       color: 'text-lime-400',
       bgColor: 'bg-lime-400/10'
     },
-    { 
-      label: 'Published', 
-      value: stats?.published || 0, 
-      icon: Send, 
+    {
+      label: 'Published',
+      value: stats?.published || 0,
+      icon: Send,
       color: 'text-green-400',
       bgColor: 'bg-green-400/10'
     },
@@ -115,7 +126,7 @@ export default function Dashboard() {
         {statCards.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div 
+            <div
               key={stat.label}
               className="stat-card rounded-xl p-6 hover-lift"
               style={{ animationDelay: `${index * 100}ms` }}
@@ -143,7 +154,7 @@ export default function Dashboard() {
                 const color = platformColors[platform];
                 const total = stats?.total || 1;
                 const percentage = Math.round((count / total) * 100) || 0;
-                
+
                 return (
                   <div key={platform} className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -153,8 +164,8 @@ export default function Dashboard() {
                       </div>
                       <span className="text-sm font-mono text-zinc-400">{count}</span>
                     </div>
-                    <Progress 
-                      value={percentage} 
+                    <Progress
+                      value={percentage}
                       className="h-1.5 bg-zinc-800"
                       style={{ '--progress-color': color }}
                     />
@@ -180,7 +191,7 @@ export default function Dashboard() {
               {STATUSES.map((status) => {
                 const count = stats?.by_status?.[status.value] || 0;
                 return (
-                  <div 
+                  <div
                     key={status.value}
                     className={cn(
                       "rounded-lg p-4 text-center border border-transparent hover:border-white/10 transition-colors",
@@ -211,7 +222,7 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {recentPosts.map((post, index) => (
               <div key={post.id} style={{ animationDelay: `${index * 100}ms` }} className="animate-fade-in">
-                <PostCard post={post} />
+                <PostCard post={post} onDelete={handleDelete} />
               </div>
             ))}
           </div>
@@ -220,7 +231,7 @@ export default function Dashboard() {
             <Lightbulb className="h-12 w-12 text-zinc-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium mb-2">No ideas yet</h3>
             <p className="text-zinc-500 mb-6">Start by creating your first content idea</p>
-            <CreatePostDialog 
+            <CreatePostDialog
               onCreated={fetchData}
               trigger={
                 <Button className="bg-lime-400 text-black hover:bg-lime-500">
