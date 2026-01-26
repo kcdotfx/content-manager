@@ -250,16 +250,16 @@ async def get_tags():
     result = await db.posts.aggregate(pipeline).to_list(100)
     return [item["_id"] for item in result]
 
-# Include the router in the main app
-app.include_router(api_router)
-
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
     allow_origins=["https://kcdotfxmanager.netlify.app"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include the router in the main app
+app.include_router(api_router)
 
 # Configure logging
 logging.basicConfig(
