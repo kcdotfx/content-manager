@@ -1,0 +1,9 @@
+[functions]
+  pythonVersion = "3.11"
+
+[build]
+  command = "pip install -r requirements.txt"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"

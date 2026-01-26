@@ -1,0 +1,170 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "Director's Cut",
+      "persona": "E1: The Anti-AI Designer",
+      "vibe": "Cinematic, Precision, Deep Focus",
+      "archetype": "Archetype 5: Jewel & Luxury (Modified for Productivity)",
+      "principles": [
+        "Fusion: Notion's utility + Linear's aesthetic + Cinema's drama",
+        "Contrast: High signal-to-noise ratio. Content pops, UI recedes.",
+        "Tension: Sharp containers vs. Pill buttons.",
+        "Depth: Layered glassmorphism over deep matte backgrounds."
+      ]
+    },
+    "typography": {
+      "fonts": {
+        "headings": {
+          "family": "Manrope, sans-serif",
+          "weights": ["600", "800"],
+          "usage": "Page titles, Section headers, Big metrics"
+        },
+        "body": {
+          "family": "Inter, sans-serif",
+          "weights": ["400", "500"],
+          "usage": "General text, Inputs, Descriptions"
+        },
+        "mono": {
+          "family": "JetBrains Mono, monospace",
+          "weights": ["400"],
+          "usage": "Tags, Dates, Status indicators, Metadata"
+        }
+      },
+      "scale": {
+        "h1": "text-4xl md:text-5xl font-extrabold tracking-tight",
+        "h2": "text-3xl font-bold tracking-tight",
+        "h3": "text-xl font-semibold tracking-normal",
+        "body": "text-base leading-relaxed text-zinc-400",
+        "caption": "text-xs font-mono uppercase tracking-widest text-zinc-500"
+      },
+      "installation": "Add this to index.css: @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;600;800&display=swap');"
+    },
+    "colors": {
+      "palette": {
+        "background": "#09090b",
+        "surface": "#18181b",
+        "surface_highlight": "#27272a",
+        "border": "rgba(255, 255, 255, 0.08)",
+        "text_primary": "#fafafa",
+        "text_secondary": "#a1a1aa",
+        "primary": "#bef264",
+        "primary_foreground": "#000000",
+        "secondary": "#27272a",
+        "accent_pink": "#f472b6",
+        "accent_cyan": "#22d3ee"
+      },
+      "usage": {
+        "action_button": "bg-lime-400 text-black hover:bg-lime-500 hover:shadow-[0_0_20px_rgba(190,242,100,0.3)]",
+        "card_bg": "bg-zinc-900/50 backdrop-blur-md border border-white/5",
+        "tag_default": "bg-zinc-800 text-zinc-300 font-mono text-xs px-2 py-1 rounded-sm",
+        "tag_active": "bg-lime-400/10 text-lime-400 border border-lime-400/20"
+      }
+    },
+    "layout": {
+      "spacing": {
+        "container_padding": "p-6 md:p-12",
+        "section_gap": "gap-8 md:gap-12",
+        "item_gap": "gap-4"
+      },
+      "grid_strategies": {
+        "dashboard": "grid grid-cols-1 md:grid-cols-12 gap-6",
+        "kanban": "flex overflow-x-auto gap-6 pb-8 snap-x",
+        "detail_view": "grid grid-cols-1 lg:grid-cols-12 gap-12"
+      },
+      "radius": {
+        "container": "rounded-xl",
+        "button": "rounded-full",
+        "input": "rounded-md"
+      }
+    },
+    "visual_enhancers": {
+      "glassmorphism": "bg-black/40 backdrop-blur-xl border-b border-white/5",
+      "gradients": "None. Use subtle noise textures or glows.",
+      "shadows": "shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
+      "borders": "border border-white/10",
+      "textures": "Use a subtle noise overlay on the main background if possible."
+    },
+    "components": {
+      "buttons": {
+        "primary": "h-10 px-6 rounded-full bg-lime-400 text-black font-bold hover:scale-105 transition-transform",
+        "secondary": "h-10 px-6 rounded-full bg-zinc-800 text-white hover:bg-zinc-700 border border-white/5"
+      },
+      "cards": {
+        "style": "bg-zinc-900/40 border border-white/5 rounded-xl p-6 hover:border-white/10 transition-colors group relative overflow-hidden",
+        "hover_effect": "Add a glow effect on hover using 'group-hover:opacity-100' on a nested absolute div."
+      },
+      "inputs": {
+        "style": "bg-zinc-950/50 border-white/10 focus:border-lime-400/50 focus:ring-lime-400/20 rounded-md h-11"
+      }
+    },
+    "motion": {
+      "transitions": "transition-all duration-300 ease-out",
+      "hover": "hover:-translate-y-1 hover:shadow-lg",
+      "page_load": "animate-in fade-in slide-in-from-bottom-4 duration-700"
+    },
+    "assets": {
+      "icons": "Lucide React (Stroke width: 1.5px)",
+      "images": [
+        {
+          "category": "dashboard_hero",
+          "url": "https://images.unsplash.com/photo-1640346876473-f76a73c71539?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "description": "Abstract cubes - Use for Dashboard Welcome/Empty State",
+          "placement": "Dashboard Header Background (with overlay)"
+        },
+        {
+          "category": "ideas_header",
+          "url": "https://images.unsplash.com/photo-1652074847108-0b4294408ca1?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "description": "Abstract ribbons - Use for Ideas Page Header",
+          "placement": "Ideas View Top Banner"
+        },
+        {
+          "category": "calendar_bg",
+          "url": "https://images.unsplash.com/photo-1651065567117-ac52c1a62e21?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "description": "Wavy ribbons - Use for Calendar subtle background",
+          "placement": "Calendar Container Background (Low Opacity)"
+        },
+        {
+          "category": "settings_hero",
+          "url": "https://images.unsplash.com/photo-1607425313763-9b59fce01668?crop=entropy&cs=srgb&fm=jpg&q=85",
+          "description": "Tunnel lights - Use for Settings/Profile",
+          "placement": "Settings Page Header"
+        }
+      ]
+    }
+  },
+  "instructions_to_main_agent": {
+    "setup": [
+      "Install missing dependencies: `yarn add recharts @hello-pangea/dnd date-fns` (for charts and kanban)",
+      "Ensure Tailwind config extends the colors: primary: '#bef264', surface: '#18181b'",
+      "Add the Google Fonts import to `src/index.css` immediately."
+    ],
+    "layout_rules": [
+      "Use a fixed Sidebar on the left (w-64) for desktop, collapsible for mobile.",
+      "Main content area must have `max-w-7xl mx-auto` to prevent stretching on huge screens.",
+      "Dashboard must use the 'Bento Grid' layout: Mix of 1x1, 2x1, and 2x2 cards."
+    ],
+    "component_overrides": [
+      "Shadcn Card: Remove default shadow, add `border-white/5`.",
+      "Shadcn Button: Change default radius to `rounded-full` for a modern feel.",
+      "Shadcn Calendar: Style selected date with `bg-lime-400 text-black`."
+    ],
+    "functionality_notes": [
+      "Since there is no Auth, hardcode a 'User Profile' in the state/context.",
+      "Use LocalStorage or a simple MongoDB fetch for persistence.",
+      "Kanban Board: Columns should be: 'Idea', 'Scripting', 'Filming', 'Editing', 'Ready', 'Published'."
+    ]
+  },
+  "universal_guidelines": {
+    "general": [
+      "Do not use gradients for backgrounds, use solid deep colors.",
+      "Use glassmorphism for sticky headers.",
+      "Every interaction needs a micro-animation.",
+      "Use 2-3x more spacing than feels comfortable.",
+      "Never use generic AI emojis."
+    ],
+    "accessibility": [
+      "Ensure text contrast is at least 4.5:1.",
+      "All interactive elements must have `data-testid`."
+    ]
+  }
+}

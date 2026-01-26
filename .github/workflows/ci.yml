@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-tests:
+    name: Backend (pytest + lint)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r backend/requirements.txt
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest -q
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          flake8 backend || true
+
+  frontend-build:
+    name: Frontend (build + lint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Install deps
+        working-directory: frontend
+        run: npm ci
+      - name: Lint (eslint)
+        working-directory: frontend
+        run: npx eslint src || true
+      - name: Run build
+        working-directory: frontend
+        run: npm run build

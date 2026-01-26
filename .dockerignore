@@ -1,0 +1,12 @@
+**/__pycache__
+**/node_modules
+**/frontend/build
+**/backend/.venv
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+*.env
+Dockerfile
+docker-compose.yml

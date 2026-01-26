@@ -1,0 +1,92 @@
+/* App-specific styles */
+.App {
+    min-height: 100vh;
+}
+
+/* Kanban specific styles */
+.kanban-column {
+    min-height: calc(100vh - 200px);
+}
+
+/* Calendar day styles */
+.calendar-day {
+    min-height: 100px;
+}
+
+/* Rich text editor placeholder */
+.editor-placeholder {
+    color: #71717a;
+    font-style: italic;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover lift effect */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Kanban drag styles */
+.dragging {
+    opacity: 0.8;
+    transform: rotate(2deg);
+}
+
+/* Badge pulse animation */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(190, 242, 100, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(190, 242, 100, 0); }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s infinite;
+}
+
+/* Sidebar active indicator */
+.nav-active {
+    position: relative;
+}
+
+.nav-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 24px;
+    background: #bef264;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Stats card gradient borders */
+.stat-card {
+    position: relative;
+    background: linear-gradient(135deg, #18181b 0%, #09090b 100%);
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    border-radius: inherit;
+    pointer-events: none;
+}
