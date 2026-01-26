@@ -30,6 +30,22 @@ db = client[db_name]
 # Create the main app without a prefix
 app = FastAPI()
 
+# Add CORS middleware BEFORE router is included - critical for proper middleware order
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://kcdotfxmanager.netlify.app",
+        "https://content-manager-881h.onrender.com",
+        "http://localhost:3000",
+        "http://localhost:5000",
+        "http://localhost:8000",
+        "http://localhost",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
@@ -260,22 +276,6 @@ async def get_tags():
 
 # Include the router in the main app
 app.include_router(api_router)
-
-# Add CORS middleware after router is included
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://kcdotfxmanager.netlify.app",
-        "https://content-manager-881h.onrender.com",
-        "http://localhost:3000",
-        "http://localhost:5000",
-        "http://localhost:8000",
-        "http://localhost",
-    ],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Configure logging
 logging.basicConfig(

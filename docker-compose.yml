@@ -20,8 +20,8 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      MONGO_URL: "mongodb://mongo:27017"
-      DB_NAME: "test_database"
+      MONGO_URL: "MONGO_URL	mongodb+srv://kcdotfx_db_user:8mgIr47sZzNIiehw@contentmanage.anrmley.mongodb.net/?appName=contentmanage"
+      DB_NAME: "content_manage"
       CORS_ORIGINS: "*"
     depends_on:
       - mongo
