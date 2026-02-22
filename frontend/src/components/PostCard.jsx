@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { 
-  Instagram, 
-  Youtube, 
-  Linkedin, 
-  Twitter, 
+import {
+  Instagram,
+  Youtube,
+  Linkedin,
+  Twitter,
   Calendar,
   MoreHorizontal,
   Trash2,
@@ -38,8 +38,10 @@ export default function PostCard({ post, onDelete, isDragging = false }) {
   const status = STATUSES.find(s => s.value === post.status);
   const priority = PRIORITIES.find(p => p.value === post.priority);
 
+
+
   return (
-    <div 
+    <div
       className={cn(
         "card-glow bg-zinc-900/40 border border-white/5 rounded-xl p-5 hover:border-white/10 transition-all duration-300 group",
         isDragging && "opacity-70 rotate-2 shadow-2xl"
@@ -59,12 +61,12 @@ export default function PostCard({ post, onDelete, isDragging = false }) {
             {post.content_type}
           </span>
         </div>
-        
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
               data-testid={`post-menu-${post.id}`}
             >
@@ -78,7 +80,7 @@ export default function PostCard({ post, onDelete, isDragging = false }) {
                 Edit
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem 
+            <DropdownMenuItem
               className="text-red-400 cursor-pointer"
               onClick={() => onDelete?.(post.id)}
               data-testid={`delete-post-${post.id}`}
@@ -108,7 +110,7 @@ export default function PostCard({ post, onDelete, isDragging = false }) {
       {post.tags && post.tags.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-4">
           {post.tags.slice(0, 3).map((tag) => (
-            <span 
+            <span
               key={tag}
               className="text-xs font-mono px-2 py-0.5 bg-zinc-800 text-zinc-400 rounded"
             >
@@ -126,20 +128,20 @@ export default function PostCard({ post, onDelete, isDragging = false }) {
       {/* Footer */}
       <div className="flex items-center justify-between pt-4 border-t border-white/5">
         <div className="flex items-center gap-2">
-          <Badge 
-            variant="outline" 
+          <Badge
+            variant="outline"
             className={cn("status-" + post.status, "text-xs font-mono border-0")}
           >
             {status?.label}
           </Badge>
-          <Badge 
-            variant="outline" 
+          <Badge
+            variant="outline"
             className={cn("bg-priority-" + post.priority, `priority-${post.priority}`, "text-xs font-mono border-0")}
           >
             {priority?.label}
           </Badge>
         </div>
-        
+
         {post.scheduled_at && (
           <div className="flex items-center gap-1 text-xs text-zinc-500">
             <Calendar className="h-3 w-3" />
